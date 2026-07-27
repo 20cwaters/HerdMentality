@@ -4,6 +4,7 @@
  */
 
 import type { ClientGameState } from '@shared/types';
+import { AddQuestionForm } from '../components/AddQuestionForm';
 import { CowToken } from '../components/CowArt';
 import { HerdBoard } from '../components/PlayerHerd';
 import { Button, Card } from '../components/ui';
@@ -191,6 +192,17 @@ export function RevealScreen({
         The herd
       </h2>
       <HerdBoard state={state} gains={gains} />
+
+      {/* Between rounds is a natural moment to slip a question into the deck. */}
+      {state.you.isHost && !isFinal && (
+        <div className="mt-4">
+          <AddQuestionForm
+            actions={actions}
+            questionsRemaining={state.questionsRemaining}
+            compact
+          />
+        </div>
+      )}
 
       {!isFinal && (
         <div className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-ink-900 bg-cream-100/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur">

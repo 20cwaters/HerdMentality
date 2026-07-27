@@ -5,8 +5,9 @@
 
 import { useState } from 'react';
 import type { ClientGameState } from '@shared/types';
+import { AddQuestionForm } from '../components/AddQuestionForm';
 import { CowToken } from '../components/CowArt';
-import { Button, Card, Pill, TextField } from '../components/ui';
+import { Button, Card, Pill } from '../components/ui';
 import { shareLink } from '../lib/identity';
 import type { GameActions } from '../lib/useGame';
 
@@ -25,8 +26,6 @@ export function LobbyScreen({
   onToggleTutorial: (on: boolean) => void;
 }) {
   const [copied, setCopied] = useState<'code' | 'link' | null>(null);
-  const [customQuestion, setCustomQuestion] = useState('');
-  const [questionsAdded, setQuestionsAdded] = useState(0);
 
   const isHost = state.you.isHost;
   const enoughPlayers = state.players.length >= MIN_PLAYERS;
@@ -40,16 +39,6 @@ export function LobbyScreen({
       setTimeout(() => setCopied(null), 1800);
     } catch {
       /* clipboard blocked — the code is on screen anyway */
-    }
-  }
-
-  async function addQuestion() {
-    const text = customQuestion.trim();
-    if (!text) return;
-    const added = await actions.addQuestions([text]);
-    if (added > 0) {
-      setQuestionsAdded((n) => n + added);
-      setCustomQuestion('');
     }
   }
 
@@ -178,40 +167,10 @@ export function LobbyScreen({
           </label>
 
           <div className="mt-4">
-            <label
-              htmlFor="custom-question"
-              className="mb-1 block font-display text-sm font-semibold uppercase tracking-wide text-ink-700"
-            >
-              Add your own question
-            </label>
-            <div className="flex gap-2">
-              <TextField
-                id="custom-question"
-                value={customQuestion}
-                onChange={(event) => setCustomQuestion(event.target.value.slice(0, 200))}
-                placeholder="Name something…"
-                enterKeyHint="done"
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter') {
-                    event.preventDefault();
-                    void addQuestion();
-                  }
-                }}
-              />
-              <Button
-                variant="secondary"
-                className="!px-4"
-                disabled={!customQuestion.trim()}
-                onClick={() => void addQuestion()}
-              >
-                Add
-              </Button>
-            </div>
-            <p className="mt-1 text-xs text-ink-700/70">
-              {questionsAdded > 0
-                ? `${questionsAdded} custom question${questionsAdded === 1 ? '' : 's'} queued up first.`
-                : `${state.questionsRemaining} questions in the deck.`}
-            </p>
+            <AddQuestionForm
+              actions={actions}
+              questionsRemaining={state.questionsRemaining}
+            />
           </div>
         </Card>
       )}
