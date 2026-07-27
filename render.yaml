@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: herd-mentality
+    runtime: node
+    plan: free
+    # --include=dev is required: TypeScript / Vite / Tailwind live in devDependencies
+    # and Render sets NODE_ENV=production during the build step.
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

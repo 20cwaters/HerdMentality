@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------- theme */
+
+@theme {
+  --font-display: 'Fredoka', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Nunito', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Cream — paper, cards, the barn wall */
+  --color-cream-50: #fffdf7;
+  --color-cream-100: #fdf6e7;
+  --color-cream-200: #f5e9d0;
+  --color-cream-300: #e9d8b4;
+
+  /* Pasture — the field everything sits in */
+  --color-pasture-100: #e4f1d3;
+  --color-pasture-300: #a9ce85;
+  --color-pasture-400: #7fb055;
+  --color-pasture-500: #5c8a3c;
+  --color-pasture-600: #4a7130;
+  --color-pasture-700: #3a5824;
+  --color-pasture-900: #213514;
+
+  /* Barn — wood, fences, leather */
+  --color-barn-300: #d9b48c;
+  --color-barn-400: #b98a5e;
+  --color-barn-500: #96683f;
+  --color-barn-600: #7a5230;
+  --color-barn-800: #4a3220;
+
+  /* Ink — cow spots and text */
+  --color-ink-700: #3d372f;
+  --color-ink-900: #1f1b18;
+
+  /* Moo — the Pink Cow, and only the Pink Cow */
+  --color-moo-200: #ffd6ea;
+  --color-moo-300: #ffb3d6;
+  --color-moo-400: #ff7cba;
+  --color-moo-500: #ff3f9a;
+  --color-moo-600: #e01c78;
+  --color-moo-700: #a91356;
+
+  --radius-blob: 2rem;
+}
+
+/* ------------------------------------------------------------- base */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    color: var(--color-ink-900);
+    background-color: var(--color-pasture-500);
+    /* Rolling pasture: a warm sky fading into deep grass. */
+    background-image:
+      radial-gradient(ellipse 120% 60% at 50% 0%, #cfe8ff 0%, transparent 60%),
+      linear-gradient(
+        180deg,
+        var(--color-pasture-300) 0%,
+        var(--color-pasture-500) 45%,
+        var(--color-pasture-700) 100%
+      );
+    background-attachment: fixed;
+    overscroll-behavior-y: none;
+  }
+
+  /* 16px minimum stops iOS Safari zooming when a field is focused. */
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+    font-size: max(16px, 1rem);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  /* Keyboard focus stays obvious; mouse clicks stay clean. */
+  :focus-visible {
+    outline: 3px solid var(--color-ink-900);
+    outline-offset: 2px;
+  }
+}
+
+/* -------------------------------------------------------- cow print */
+
+/*
+ * Hand-drawn-ish cow spots, tiled. Used as a subtle accent on headers and
+ * panels — kept low-contrast so text stays readable on top of it.
+ */
+@utility cow-print {
+  background-color: var(--color-cream-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%231f1b18'%3E%3Cpath d='M42 18c26-12 58 2 60 28 2 24-16 40-40 42-25 2-44-12-46-32-2-18 8-30 26-38z'/%3E%3Cpath d='M168 8c22 4 34 22 30 40-4 20-24 30-42 24-18-6-26-24-20-42 5-14 18-25 32-22z'/%3E%3Cpath d='M104 118c30-8 58 12 58 40 0 26-22 44-50 42-26-2-44-22-42-46 2-20 16-32 34-36z'/%3E%3Cpath d='M18 148c18-6 36 6 38 24 2 20-14 34-32 32-16-2-26-16-24-32 1-12 8-20 18-24z'/%3E%3Cpath d='M198 158c20-4 36 12 34 30-2 16-16 28-32 26-18-2-28-18-24-36 3-11 12-18 22-20z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+@utility cow-print-soft {
+  background-color: var(--color-cream-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%231f1b18' opacity='0.07'%3E%3Cpath d='M42 18c26-12 58 2 60 28 2 24-16 40-40 42-25 2-44-12-46-32-2-18 8-30 26-38z'/%3E%3Cpath d='M168 8c22 4 34 22 30 40-4 20-24 30-42 24-18-6-26-24-20-42 5-14 18-25 32-22z'/%3E%3Cpath d='M104 118c30-8 58 12 58 40 0 26-22 44-50 42-26-2-44-22-42-46 2-20 16-32 34-36z'/%3E%3Cpath d='M18 148c18-6 36 6 38 24 2 20-14 34-32 32-16-2-26-16-24-32 1-12 8-20 18-24z'/%3E%3Cpath d='M198 158c20-4 36 12 34 30-2 16-16 28-32 26-18-2-28-18-24-36 3-11 12-18 22-20z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+/* Paddock grass for the cow-token pens. */
+@utility paddock {
+  background-color: var(--color-pasture-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='24' viewBox='0 0 40 24'%3E%3Cg stroke='%235c8a3c' stroke-width='1.5' fill='none' opacity='0.35' stroke-linecap='round'%3E%3Cpath d='M4 24c0-6 2-9 2-12'/%3E%3Cpath d='M12 24c0-5-3-8-3-11'/%3E%3Cpath d='M24 24c0-7 3-10 3-13'/%3E%3Cpath d='M33 24c0-5-2-8-2-10'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 40px 24px;
+  background-repeat: repeat;
+}
+
+/* --------------------------------------------------------- animation */
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.7) translateY(8px);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05) translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes pink-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 63 154 / 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgb(255 63 154 / 0);
+  }
+}
+
+@utility animate-pop {
+  animation: pop-in 0.36s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+}
+
+@utility animate-sway {
+  animation: sway 3.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@utility animate-pink-pulse {
+  animation: pink-pulse 2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
