@@ -93,36 +93,68 @@ export function CowMascot({ className = 'w-56 h-44' }: { className?: string }) {
   );
 }
 
-/** Rolling hills + fence, used as the join screen's backdrop. */
-export function PastureScene({ className = '' }: { className?: string }) {
+/**
+ * One tile of cow print. Every spot is drawn nine times inside the pattern —
+ * once in place and once per neighbouring tile — so shapes that run off an edge
+ * reappear on the opposite one and the repeat is genuinely seamless.
+ */
+const TILE = 400;
+
+const SPOTS = (
+  <>
+    <path d="M96 40c34-16 78-4 86 30 9 36-14 66-50 70-34 4-62-16-64-44-2-24 8-46 28-56z" />
+    <path d="M370 84c30-10 62 8 66 40 5 34-18 62-52 64-32 2-58-20-58-50 0-26 20-46 44-54z" />
+    <path d="M150 330c36-12 76 6 82 42 6 38-20 70-58 72-36 2-66-22-68-56-2-28 18-50 44-58z" />
+    <path d="M-30 220c30-14 66 0 72 32 7 36-16 66-50 68-32 2-58-18-60-48-2-24 16-44 38-52z" />
+    <path d="M290 6c20-8 42 2 46 20 5 20-8 38-28 40-19 2-34-10-36-27-2-14 6-28 18-33z" />
+    <path d="M60 200c18-6 38 4 40 22 3 18-10 34-28 34-16 0-28-12-28-27 0-12 6-24 16-29z" />
+  </>
+);
+
+const NEIGHBOURS = [-1, 0, 1].flatMap((x) => [-1, 0, 1].map((y) => [x, y] as const));
+
+/**
+ * The page background: white with big black cow spots, plus a single pink one
+ * off to the side. Sits behind everything and never scrolls.
+ */
+export function CowSpotsBackdrop() {
   return (
-    <svg
-      viewBox="0 0 400 160"
-      preserveAspectRatio="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M0 70c60-30 110 10 170-6s110-40 230-8v104H0z" fill="#7fb055" />
-      <path d="M0 100c70-24 130 6 200-4s130-26 200-6v70H0z" fill="#5c8a3c" />
-      <g stroke="#7a5230" strokeWidth="6" strokeLinecap="round">
-        <path d="M30 150v-38M110 150v-38M190 150v-38M270 150v-38M350 150v-38" />
-      </g>
-      <g stroke="#96683f" strokeWidth="5" strokeLinecap="round">
-        <path d="M10 122h380M10 138h380" />
-      </g>
-    </svg>
+    <div className="pointer-events-none fixed inset-0 -z-10 bg-white" aria-hidden="true">
+      <svg className="h-full w-full">
+        <defs>
+          <pattern
+            id="cow-spots"
+            width={TILE}
+            height={TILE}
+            patternUnits="userSpaceOnUse"
+          >
+            <g fill="#151210">
+              {NEIGHBOURS.map(([x, y]) => (
+                <g key={`${x},${y}`} transform={`translate(${x * TILE},${y * TILE})`}>
+                  {SPOTS}
+                </g>
+              ))}
+            </g>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#cow-spots)" />
+      </svg>
+
+      {/* The odd one out. On wide screens there's room beside the column for it. */}
+      <PinkSpot className="absolute -left-12 bottom-[6%] h-56 w-56 sm:left-[3%]" />
+      <PinkSpot className="absolute -right-16 top-[14%] hidden h-64 w-64 lg:block" />
+    </div>
   );
 }
 
-/** Decorative floating spots for empty background space. */
-export function DriftingSpots({ className = '' }: { className?: string }) {
+/** A single pink cow spot — the one that stands out. */
+export function PinkSpot({ className = '' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 300 300" className={className} aria-hidden="true">
-      <g fill="#1f1b18" opacity="0.08">
-        <path d="M42 18c26-12 58 2 60 28 2 24-16 40-40 42-25 2-44-12-46-32-2-18 8-30 26-38z" />
-        <path d="M228 38c22 4 34 22 30 40-4 20-24 30-42 24-18-6-26-24-20-42 5-14 18-25 32-22z" />
-        <path d="M134 168c30-8 58 12 58 40 0 26-22 44-50 42-26-2-44-22-42-46 2-20 16-32 34-36z" />
-      </g>
+    <svg viewBox="0 0 200 200" className={className} aria-hidden="true">
+      <path
+        fill="#ff3f9a"
+        d="M100 12c46-14 88 18 88 66 0 50-40 84-88 80-46-4-76-40-74-84 2-36 30-52 74-62z"
+      />
     </svg>
   );
 }

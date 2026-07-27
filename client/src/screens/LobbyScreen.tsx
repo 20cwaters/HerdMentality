@@ -7,7 +7,7 @@ import { useState } from 'react';
 import type { ClientGameState } from '@shared/types';
 import { AddQuestionForm } from '../components/AddQuestionForm';
 import { CowToken } from '../components/CowArt';
-import { Button, Card, Pill } from '../components/ui';
+import { BackdropNote, Button, Card, Pill } from '../components/ui';
 import { shareLink } from '../lib/identity';
 import type { GameActions } from '../lib/useGame';
 
@@ -198,14 +198,12 @@ export function LobbyScreen({
             : `Waiting for ${MIN_PLAYERS - state.players.length} more…`}
         </Button>
       ) : (
-        <p className="rounded-2xl border-2 border-cream-100/40 bg-cream-50/15 px-4 py-3 text-center font-display text-lg text-cream-50">
-          Waiting for the host to start…
-        </p>
+        <BackdropNote>Waiting for the host to start…</BackdropNote>
       )}
 
       <button
         onClick={actions.leave}
-        className="mx-auto mt-4 block text-sm font-semibold text-cream-100/80 underline"
+        className="mx-auto mt-4 block rounded-full bg-ink-900/85 px-4 py-1.5 text-sm font-semibold text-cream-50"
       >
         Leave this game
       </button>

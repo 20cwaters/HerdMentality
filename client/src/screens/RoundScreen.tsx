@@ -7,7 +7,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { ClientGameState } from '@shared/types';
 import { CowToken } from '../components/CowArt';
 import { HerdBoard } from '../components/PlayerHerd';
-import { Button, Card, TextField } from '../components/ui';
+import { Button, Card, SectionLabel, TextField } from '../components/ui';
 import type { GameActions } from '../lib/useGame';
 
 export function RoundScreen({
@@ -101,9 +101,7 @@ export function RoundScreen({
         </Card>
       )}
 
-      <h2 className="mb-2 font-display text-xl text-cream-50 drop-shadow-[0_2px_0_rgba(31,27,24,0.6)]">
-        The herd so far
-      </h2>
+      <SectionLabel>The herd so far</SectionLabel>
       <HerdBoard state={state} showSubmission />
     </div>
   );

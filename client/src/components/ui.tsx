@@ -106,6 +106,27 @@ export function Pill({
   );
 }
 
+/**
+ * A heading that sits directly on the spotted background. Black-on-white keeps
+ * it legible whether it lands on a cow spot or between two.
+ */
+export function SectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <h2 className="mb-2 inline-block rounded-full bg-ink-900 px-4 py-1 font-display text-base font-bold uppercase tracking-wide text-cream-50">
+      {children}
+    </h2>
+  );
+}
+
+/** Standalone status text on the background, boxed so it stays readable. */
+export function BackdropNote({ children }: { children: ReactNode }) {
+  return (
+    <p className="rounded-2xl border-2 border-ink-900 bg-cream-50 px-4 py-3 text-center font-display text-lg">
+      {children}
+    </p>
+  );
+}
+
 /** Full-screen scrim + centred panel, used for rules and dialogs. */
 export function Modal({
   open,

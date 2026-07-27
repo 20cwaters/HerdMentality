@@ -35,7 +35,7 @@ export function AddQuestionForm({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="mb-4 w-full rounded-2xl border-2 border-dashed border-cream-100/60 bg-cream-50/10 px-4 py-3 font-display text-base font-semibold text-cream-50"
+        className="mb-4 w-full rounded-2xl border-2 border-dashed border-ink-900 bg-cream-50 px-4 py-3 font-display text-base font-semibold text-ink-900"
       >
         + Add a question of your own
       </button>

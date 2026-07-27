@@ -7,7 +7,7 @@ import type { ClientGameState } from '@shared/types';
 import { AddQuestionForm } from '../components/AddQuestionForm';
 import { CowToken } from '../components/CowArt';
 import { HerdBoard } from '../components/PlayerHerd';
-import { Button, Card } from '../components/ui';
+import { Button, Card, SectionLabel } from '../components/ui';
 import type { GameActions } from '../lib/useGame';
 
 /** Deliberately gentle — nobody should feel got at. */
@@ -188,9 +188,7 @@ export function RevealScreen({
         </Card>
       )}
 
-      <h2 className="mb-2 font-display text-xl text-cream-50 drop-shadow-[0_2px_0_rgba(31,27,24,0.6)]">
-        The herd
-      </h2>
+      <SectionLabel>The herd</SectionLabel>
       <HerdBoard state={state} gains={gains} />
 
       {/* Between rounds is a natural moment to slip a question into the deck. */}

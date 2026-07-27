@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { CowToken } from './components/CowArt';
+import { CowSpotsBackdrop, CowToken } from './components/CowArt';
 import { RulesModal } from './components/RulesModal';
 import { TutorialCoach } from './components/TutorialCoach';
 import { Pill } from './components/ui';
@@ -31,6 +31,7 @@ export default function App() {
   if (!state) {
     return (
       <>
+        <CowSpotsBackdrop />
         <JoinScreen
           actions={actions}
           connected={connected && !rejoining}
@@ -44,15 +45,17 @@ export default function App() {
 
   return (
     <div className="min-h-dvh">
+      <CowSpotsBackdrop />
+
       {/* Header — room code, target and the always-available rules button */}
-      <header className="sticky top-0 z-30 border-b-2 border-ink-900 bg-cream-100/95 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-md items-center gap-2 px-4 py-2.5">
+      <header className="sticky top-0 z-30 border-b-2 border-ink-900 bg-ink-900/97 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-md items-center gap-2.5 px-4 py-2.5">
           <CowToken className="h-8 w-8 shrink-0" />
           <div className="min-w-0">
-            <p className="truncate font-display text-lg font-bold leading-tight">
+            <p className="truncate font-title text-xl uppercase leading-tight tracking-wide text-cream-50">
               Herd Mentality
             </p>
-            <p className="flex items-center gap-1.5 text-xs font-semibold text-ink-700/70">
+            <p className="flex items-center gap-1.5 text-xs font-semibold text-cream-100/70">
               <span>Room {state.roomCode}</span>
               <span aria-hidden>·</span>
               <span>{state.settings.targetCows} cows to win</span>
@@ -60,7 +63,7 @@ export default function App() {
           </div>
           <button
             onClick={() => setRulesOpen(true)}
-            className="ml-auto min-h-11 rounded-xl border-2 border-ink-900 bg-cream-50 px-3 font-display font-semibold"
+            className="ml-auto min-h-11 rounded-xl border-2 border-cream-50 bg-cream-50 px-3 font-display font-semibold text-ink-900"
           >
             Rules
           </button>
@@ -89,7 +92,7 @@ export default function App() {
               <div className="px-4">
                 <button
                   onClick={() => setShowFinalRound(false)}
-                  className="mb-2 font-display text-lg font-semibold text-cream-50 underline"
+                  className="mb-2 rounded-full bg-ink-900 px-4 py-1.5 font-display text-base font-semibold text-cream-50"
                 >
                   ← Back to the results
                 </button>

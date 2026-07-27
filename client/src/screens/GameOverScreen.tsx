@@ -1,9 +1,9 @@
 /** Winner's rosette, final standings, and a way back to the lobby. */
 
 import type { ClientGameState } from '@shared/types';
-import { CowToken, DriftingSpots } from '../components/CowArt';
+import { CowMascot, CowToken } from '../components/CowArt';
 import { HerdBoard } from '../components/PlayerHerd';
-import { Button, Card } from '../components/ui';
+import { BackdropNote, Button, Card, SectionLabel } from '../components/ui';
 import type { GameActions } from '../lib/useGame';
 
 export function GameOverScreen({
@@ -21,11 +21,9 @@ export function GameOverScreen({
 
   return (
     <div className="relative mx-auto w-full max-w-md px-4 pb-10">
-      <DriftingSpots className="pointer-events-none absolute -right-16 top-10 h-64 w-64 rotate-12" />
-
       <Card className="cow-print-soft relative mb-4 p-6 text-center">
-        <div className="flex justify-center gap-1">
-          <CowToken className="h-16 w-16 animate-sway" />
+        <div className="flex justify-center">
+          <CowMascot className="h-36 w-44 animate-sway" />
         </div>
         <p className="mt-2 font-display text-sm font-semibold uppercase tracking-widest text-ink-700">
           Winner of the herd
@@ -45,9 +43,7 @@ export function GameOverScreen({
         )}
       </Card>
 
-      <h2 className="mb-2 font-display text-xl text-cream-50 drop-shadow-[0_2px_0_rgba(31,27,24,0.6)]">
-        Final standings
-      </h2>
+      <SectionLabel>Final standings</SectionLabel>
       <HerdBoard state={state} />
 
       <div className="mt-5 flex flex-col gap-2">
@@ -59,13 +55,11 @@ export function GameOverScreen({
             Back to the lobby
           </Button>
         ) : (
-          <p className="text-center font-display text-lg text-cream-50">
-            Waiting for the host to set up another game…
-          </p>
+          <BackdropNote>Waiting for the host to set up another game…</BackdropNote>
         )}
         <button
           onClick={actions.leave}
-          className="mx-auto mt-1 text-sm font-semibold text-cream-100/80 underline"
+          className="mx-auto mt-1 rounded-full bg-ink-900/85 px-4 py-1.5 text-sm font-semibold text-cream-50"
         >
           Leave this game
         </button>

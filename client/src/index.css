@@ -3,6 +3,8 @@
 /* ---------------------------------------------------------------- theme */
 
 @theme {
+  /* Heavy condensed caps, for the logo lockup only. */
+  --font-title: 'Anton', 'Arial Narrow', 'Haettenschweiler', sans-serif;
   --font-display: 'Fredoka', ui-rounded, 'Segoe UI', system-ui, sans-serif;
   --font-sans: 'Nunito', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
@@ -55,17 +57,8 @@
     min-height: 100dvh;
     font-family: var(--font-sans);
     color: var(--color-ink-900);
-    background-color: var(--color-pasture-500);
-    /* Rolling pasture: a warm sky fading into deep grass. */
-    background-image:
-      radial-gradient(ellipse 120% 60% at 50% 0%, #cfe8ff 0%, transparent 60%),
-      linear-gradient(
-        180deg,
-        var(--color-pasture-300) 0%,
-        var(--color-pasture-500) 45%,
-        var(--color-pasture-700) 100%
-      );
-    background-attachment: fixed;
+    /* Plain white — the cow spots are drawn by <CowSpotsBackdrop />. */
+    background-color: #ffffff;
     overscroll-behavior-y: none;
   }
 
